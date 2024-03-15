@@ -10,6 +10,7 @@ func main() {
 	nilPointers()
 	pointWithNew()
 	pointerRepitition()
+	structPointers()
 }
 
 func dereferenceAndIndirectionOperator() {
@@ -51,4 +52,41 @@ func pointerRepitition() {
 	fmt.Println(&x, pointerX, "is the same")
 }
 
-func structPointers() {}
+func structPointers() {
+	type person struct {
+		FirstName  string
+		MiddleName *string
+		LastName   string
+	}
+
+	// p := person{
+	// 	FirstName:  "John",
+	// 	MiddleName: "Perry",
+	// 	LastName:   "Doe",
+	// }
+	// output:
+	// cannot use "Perry" (untyped string constant) as *string value in struct literalcompilerIncompatibleAssign
+
+	var perry = "Perry"
+	p := person{
+		FirstName:  "John",
+		MiddleName: &perry,
+		LastName:   "Doe",
+	}
+
+	fmt.Println(p.FirstName, *p.MiddleName, p.LastName)
+
+	// Workaround with generic function
+	p2 := person{
+		FirstName:  "John",
+		MiddleName: makePointer("Perry"),
+		LastName:   "Doe",
+	}
+
+	fmt.Println(p2.FirstName, *p2.MiddleName, p2.LastName)
+}
+
+// This is a helper function that takes a constant value and turns it into a pointer
+func makePointer[T any](t T) *T {
+	return &t
+}
