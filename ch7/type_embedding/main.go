@@ -19,6 +19,10 @@ func main() {
 	for _, v := range employees {
 		fmt.Printf(v.Name, "from manager type")
 	}
+
+	fmt.Println()
+	fmt.Println()
+	exampleWhenSameName()
 }
 
 type Employee struct {
@@ -39,4 +43,27 @@ func (m Mananger) FindNewEmployees() []Employee {
 	return []Employee{
 		{"Jørgen", "JO"},
 	}
+}
+
+type Inner struct {
+	x int
+}
+
+type Outer struct {
+	Inner
+	x int
+}
+
+func exampleWhenSameName() {
+	o := Outer{
+		Inner: Inner{
+			x: 10,
+		},
+		x: 20,
+	}
+
+	fmt.Println(o.x)
+	// If the names of the field would have been unique
+	// it could have been referenced via o.x
+	fmt.Println(o.Inner.x)
 }
