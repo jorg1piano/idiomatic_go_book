@@ -11,6 +11,7 @@ func main() {
 	pointWithNew()
 	pointerRepitition()
 	structPointers()
+	playingWithPointerParams()
 }
 
 func dereferenceAndIndirectionOperator() {
@@ -89,4 +90,46 @@ func structPointers() {
 // This is a helper function that takes a constant value and turns it into a pointer
 func makePointer[T any](t T) *T {
 	return &t
+}
+
+// Some notes on pointers in g0
+// If you pass a pointer to a methode, the parameter is still copied.
+// We are copying the pointer, but the copied pointer still points to the same data
+//
+
+func playingWithPointerParams() {
+	// There is a godcha, if you pass a nil pointer to a function, you cannot
+	// make the value non-nil. You can't reassign the value unless the pointer was not nil.
+	fmt.Println("failedUpdate")
+	var f *int
+	failedUpdate(f)
+	fmt.Println(f)
+
+	x := 10
+	actualUpdate(&x)
+	fmt.Println(x)
+
+	px := 0
+	fmt.Println(&px, "px address in decleared scope")
+	updateTo20(&px)
+	fmt.Println(px)
+}
+
+func failedUpdate(g *int) {
+	x := 10
+	// The copy of the pointer now points to the new address
+	g = &x
+
+	// Updating this pointer will not change the original pointer
+	*g = 420
+}
+
+func actualUpdate(g *int) {
+	// Change the value g points to
+	*g = 69
+}
+
+func updateTo20(px *int) {
+	fmt.Println(&px, "px address in function scope")
+	*px = 20
 }
