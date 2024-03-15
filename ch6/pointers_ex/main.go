@@ -9,7 +9,6 @@ type Person struct {
 
 // compile with go build -gcflags="-m"
 func main() {
-
 	p1 := makePerson("jørgen", "andersen", 31)
 	// p1 suprisingly escapes to the heap because
 	// Println take in a interface{}.
