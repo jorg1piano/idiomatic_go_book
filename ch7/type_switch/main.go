@@ -13,14 +13,14 @@ func main() {
 }
 
 func doThings(i any) {
-	switch j := i.(type) {
+	switch i := i.(type) {
 	case nil:
-		fmt.Println(j, "The value was nil")
+		fmt.Println(i, "The value was nil")
 	case string:
-		fmt.Println(j, "This was a string")
+		fmt.Println(i, "This was a string")
 	case int:
-		fmt.Println(j, "This was a int")
+		fmt.Println(i, "This was a int")
 	default:
-		fmt.Println(j, "Cant handle this type here")
+		fmt.Println(i, "Cant handle this type here")
 	}
 }
