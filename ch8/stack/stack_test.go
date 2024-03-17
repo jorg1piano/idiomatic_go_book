@@ -42,4 +42,28 @@ func TestStack(t *testing.T) {
 		}
 	})
 
+	t.Run("returns true when value is in stack", func(t *testing.T) {
+		s := Stack[string]{}
+
+		s.Push("Hello")
+		s.Push("World")
+
+		f := s.Contains("Hello")
+		if f != true {
+			t.Fatalf("Could not find %s in stack", s)
+		}
+	})
+
+	t.Run("returns false when value is not in stack", func(t *testing.T) {
+		s := Stack[string]{}
+
+		s.Push("Hello")
+		s.Push("World")
+
+		v := s.Contains("Not-Here")
+		if v == true {
+			t.Fatalf("got %v, expeted %v when calling contains", true, v)
+		}
+	})
+
 }
